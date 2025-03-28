@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Career Exploration Hub</title>
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <style>
+        body { margin: 0; }
+    </style>
+</head>
+
+<body>
+    <a-scene>
+        <!-- Scene lighting -->
+        <a-light type="ambient" color="#CCCCCC"></a-light>
+        <a-light type="directional" position="1 4 2" intensity="0.6"></a-light>
+
+        <!-- Floor -->
+        <a-plane rotation="-90 0 0" width="25" height="25" color="#B0B0B0"></a-plane>
+
+        <!-- Background sky -->
+        <a-sky color="#DDF0FF"></a-sky>
+
+        <!-- Camera setup -->
+        <a-entity camera position="0 1.6 5"></a-entity>
+
+    </a-scene>
+</body>
+
+</html>
