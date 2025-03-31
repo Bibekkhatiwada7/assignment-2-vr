@@ -1,5 +1,5 @@
 // Basic scene setup
-window.addEventListener('DOMContentLoaded', function(){
+window.addEventListener('DOMContentLoaded', async function(){
     const canvas = document.getElementById('renderCanvas');
     const engine = new BABYLON.Engine(canvas, true);
     const scene = new BABYLON.Scene(engine);
@@ -18,6 +18,15 @@ window.addEventListener('DOMContentLoaded', function(){
     const groundMat = new BABYLON.StandardMaterial("groundMat", scene);
     groundMat.diffuseColor = new BABYLON.Color3(0.85, 0.85, 0.85); // light gray
     ground.material = groundMat;
+
+    // Start a WebXR session 
+    const xr = await scene.createDefaultXRExperienceAsync({
+        uiOptions: {
+            sessionMode: "immersive-vr", 
+            referenceSpaceType: "local-floor"
+        },
+        optionalFeatures: true
+    });
 
     // Render loop
     engine.runRenderLoop(() => scene.render());
