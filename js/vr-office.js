@@ -1,5 +1,5 @@
     // Basic scene setup
-    window.addEventListener('DOMContentLoaded',async function(){
+    window.addEventListener('DOMContentLoaded', async function(){
         const canvas = document.getElementById('renderCanvas');
         const engine = new BABYLON.Engine(canvas, true);
         const scene = new BABYLON.Scene(engine);
@@ -17,7 +17,7 @@
         const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 15, height: 15 }, scene);
         const groundMat = new BABYLON.StandardMaterial("groundMat", scene);
         //adding texture images for the ground
-        groundMat.diffuseTexture = new BABYLON.Texture("textures/Seamless-Stone-Texture-2.jpg", scene); 
+        groundMat.diffuseTexture = new BABYLON.Texture("Textures/ground.jpg", scene); 
         ground.material = groundMat;
         
         // Added a computer
@@ -53,16 +53,15 @@
        const chairMat = new BABYLON.StandardMaterial("chairMat", scene);
        chairMat.diffuseColor = new BABYLON.Color3(0.6, 0.4, 0.3);
        chair.material = chairMat;
-    
+
        // Start a WebXR session 
-    const xr = await scene.createDefaultXRExperienceAsync({
+       const xr = await scene.createDefaultXRExperienceAsync({
         uiOptions: {
             sessionMode: "immersive-vr", 
             referenceSpaceType: "local-floor"
         },
         optionalFeatures: true
     });
-
     
         // Render loop
         engine.runRenderLoop(() => scene.render());
