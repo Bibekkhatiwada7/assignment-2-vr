@@ -18,3 +18,4 @@ A chair
 Scene lighting
 
 Ready for WebXR immersive VR mode
+Github page Deployment: https://bibekkhatiwada7.github.io/assignment-2-vr/
