@@ -39,6 +39,24 @@
     monitorMat.diffuseTexture = screenTexture; // Apply the image texture only to the screen
     monitor.material = monitorMat;
 
+    // mouse
+    const mouse = BABYLON.MeshBuilder.CreateSphere("mouse", { diameter: 0.175 }, scene); 
+    mouse.position.y = 1.1;
+    mouse.position.z = -2.9;
+    mouse.position.x = 0.9;  
+    const mouseMat = new BABYLON.StandardMaterial("mouseMat", scene);
+    mouseMat.diffuseColor = new BABYLON.Color3(0.4, 0.4, 0.4); 
+    mouse.material = mouseMat;
+
+    // added keyboard
+    const keyboard = BABYLON.MeshBuilder.CreateBox("keyboard", { width: 1, height: 0.05, depth: 0.4 }, scene);  // Smaller keyboard
+    keyboard.position.y = 1.1;
+    keyboard.position.z = -2.9;  
+    keyboard.position.x = 0.1;  
+    const keyboardMat = new BABYLON.StandardMaterial("keyboardMat", scene);
+    keyboardMat.diffuseColor = new BABYLON.Color3(0.2, 0.2, 0.2);  
+    keyboard.material = keyboardMat;
+
       // Added a Desk 
        const deskTop = BABYLON.MeshBuilder.CreateBox("deskTop", { width: 2.4, height: 0.1, depth: 1 }, scene);
        deskTop.position.y = 1; 
@@ -64,6 +82,26 @@
        const chairMat = new BABYLON.StandardMaterial("chairMat", scene);
        chairMat.diffuseColor = new BABYLON.Color3(0.6, 0.4, 0.3);
        chair.material = chairMat;
+       
+       // Lamp Stand 
+       const stand = BABYLON.MeshBuilder.CreateCylinder("stand", { height: 3, diameterTop: 0.1, diameterBottom: 0.2 }, scene);
+       stand.position.set(3, 1.5, -2);  // Positioning the stand
+       const standMat = new BABYLON.StandardMaterial("standMat", scene);
+       standMat.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5);  
+       stand.material = standMat;
+
+       // Lamp Shade 
+       const lampShade = BABYLON.MeshBuilder.CreateCylinder("lampShade", { height: 0.8, diameterTop: 0.5, diameterBottom: 1 }, scene);
+       lampShade.position.set(3, 3, -2);  
+       const shadeMat = new BABYLON.StandardMaterial("shadeMat", scene);
+       shadeMat.diffuseColor = new BABYLON.Color3(1, 1, 0);  
+       lampShade.material = shadeMat;
+
+       // Light Source
+       const lampLight = new BABYLON.PointLight("lampLight", new BABYLON.Vector3(3, 2.8, -2), scene);
+       lampLight.intensity = 0.8;  
+       lampLight.diffuse = new BABYLON.Color3(1, 1, 0);  
+       lampLight.range = 5;  
 
     
         // Render loop
