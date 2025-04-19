@@ -1,5 +1,5 @@
     // Basic scene setup
-    window.addEventListener('DOMContentLoaded', async function(){
+    window.addEventListener('DOMContentLoaded', function(){
         const canvas = document.getElementById('renderCanvas');
         const engine = new BABYLON.Engine(canvas, true);
         const scene = new BABYLON.Scene(engine);
@@ -21,12 +21,23 @@
         ground.material = groundMat;
         
         // Added a computer
-        const computer = BABYLON.MeshBuilder.CreateBox("computer", { width: 0.8, height: 0.5, depth: 0.1 }, scene);
-        computer.position.y = 1.25;
-        computer.position.z = -3;
-        const computerMat = new BABYLON.StandardMaterial("computerMat", scene);
-        computerMat.diffuseColor = new BABYLON.Color3(0.1, 0.1, 0.1);
-        computer.material = computerMat;
+    const computer = BABYLON.MeshBuilder.CreateBox("computer", { width: 1.5, height: 0.8, depth: 0.1 }, scene);
+    computer.position.y = 1.45;
+    computer.position.z = -3.3;
+    computer.position.x = 0.1;
+    const computerMat = new BABYLON.StandardMaterial("computerMat", scene);
+    computerMat.diffuseColor = new BABYLON.Color3(0.1, 0.1, 0.1);
+    computer.material = computerMat;
+
+    // Apply the Windows desktop image to the monitor screen
+    const screenTexture = new BABYLON.Texture("Textures/windows-7-pictures-ls3d2tksci60suou.jpg", scene); 
+    const monitor = BABYLON.MeshBuilder.CreateBox("monitor", { width: 1.5, height: 0.8, depth: 0.1 }, scene); 
+    monitor.position.y = 1.45; 
+    monitor.position.z = -3.3;
+    monitor.position.x = 0.1;
+    const monitorMat = new BABYLON.StandardMaterial("monitorMat", scene);
+    monitorMat.diffuseTexture = screenTexture; // Apply the image texture only to the screen
+    monitor.material = monitorMat;
 
       // Added a Desk 
        const deskTop = BABYLON.MeshBuilder.CreateBox("deskTop", { width: 2.4, height: 0.1, depth: 1 }, scene);
@@ -54,14 +65,6 @@
        chairMat.diffuseColor = new BABYLON.Color3(0.6, 0.4, 0.3);
        chair.material = chairMat;
 
-       // Start a WebXR session 
-       const xr = await scene.createDefaultXRExperienceAsync({
-        uiOptions: {
-            sessionMode: "immersive-vr", 
-            referenceSpaceType: "local-floor"
-        },
-        optionalFeatures: true
-    });
     
         // Render loop
         engine.runRenderLoop(() => scene.render());
