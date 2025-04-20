@@ -51,25 +51,60 @@
     rightWall.position.x = 7.5;
     rightWall.position.y = roomHeight / 2;
     rightWall.material = wallMat;  
+ // Added a computer
+ const computer = BABYLON.MeshBuilder.CreateBox("computer", { width: 1.5, height: 0.8, depth: 0.1 }, scene);
+ computer.position.y = 1.45;
+ computer.position.z = -3.3;
+ computer.position.x = 0.1;
+ const computerMat = new BABYLON.StandardMaterial("computerMat", scene);
+ computerMat.diffuseColor = new BABYLON.Color3(0.1, 0.1, 0.1);
+ computer.material = computerMat;
 
-        // Added a computer
-    const computer = BABYLON.MeshBuilder.CreateBox("computer", { width: 1.5, height: 0.8, depth: 0.1 }, scene);
-    computer.position.y = 1.45;
-    computer.position.z = -3.3;
-    computer.position.x = 0.1;
-    const computerMat = new BABYLON.StandardMaterial("computerMat", scene);
-    computerMat.diffuseColor = new BABYLON.Color3(0.1, 0.1, 0.1);
-    computer.material = computerMat;
+ // Apply the Windows desktop image to the monitor screen
+ const screenTexture = new BABYLON.Texture("Textures/windows-7-pictures-ls3d2tksci60suou.jpg", scene); 
+ const monitor = BABYLON.MeshBuilder.CreateBox("monitor", { width: 1.5, height: 0.8, depth: 0.1 }, scene); 
+ monitor.position.y = 1.45; 
+ monitor.position.z = -3.3;
+ monitor.position.x = 0.1;
+ const monitorMat = new BABYLON.StandardMaterial("monitorMat", scene);
+ monitorMat.diffuseTexture = screenTexture; // Apply the image texture only to the screen
+ monitor.material = monitorMat;
 
-    // Apply the Windows desktop image to the monitor screen
-    const screenTexture = new BABYLON.Texture("Textures/windows-7-pictures-ls3d2tksci60suou.jpg", scene); 
-    const monitor = BABYLON.MeshBuilder.CreateBox("monitor", { width: 1.5, height: 0.8, depth: 0.1 }, scene); 
-    monitor.position.y = 1.45; 
-    monitor.position.z = -3.3;
-    monitor.position.x = 0.1;
-    const monitorMat = new BABYLON.StandardMaterial("monitorMat", scene);
-    monitorMat.diffuseTexture = screenTexture; // Apply the image texture only to the screen
-    monitor.material = monitorMat;
+ // Added GUI to show the Welcome message
+const guiTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+// Welcome Text
+const welcomeText = new BABYLON.GUI.TextBlock();
+welcomeText.text = "Welcome to the first day of your job, New Intern!\n\nClick on the computer to view today's tasks.";
+welcomeText.color = "white";
+welcomeText.fontSize = 24;
+welcomeText.top = "-150px";  
+welcomeText.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+welcomeText.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+guiTexture.addControl(welcomeText);
+
+// Task List (when computer is clicked)
+const taskText = new BABYLON.GUI.TextBlock();
+taskText.text = "Today's Tasks:\n1. Set up email\n2. Review onboarding documents\n3. Meet with the team\n4. Complete initial training";
+taskText.fontSize = 20;
+taskText.color = "white";
+taskText.top = "50px";  
+taskText.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+taskText.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+taskText.isVisible = false; 
+guiTexture.addControl(taskText);
+
+// When the computer is clicked, show the task list
+computer.actionManager = new BABYLON.ActionManager(scene);
+computer.actionManager.registerAction(new BABYLON.ExecuteCodeAction(
+    BABYLON.ActionManager.OnPickTrigger, () => {
+        
+        welcomeText.isVisible = false;
+        taskText.isVisible = true;
+    }
+));
+
+
 
     // mouse
     const mouse = BABYLON.MeshBuilder.CreateSphere("mouse", { diameter: 0.175 }, scene); 
