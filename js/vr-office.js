@@ -103,6 +103,43 @@
        lampLight.diffuse = new BABYLON.Color3(1, 1, 0);  
        lampLight.range = 5;  
 
+       // Sofa Material
+       const sofaMat = new BABYLON.StandardMaterial("sofaMat", scene);
+       sofaMat.diffuseColor = new BABYLON.Color3(0.6, 0.3, 0.2);  
+
+       // Sofa - Base
+       const sofaBase = BABYLON.MeshBuilder.CreateBox("sofaBase", { width: 4, height: 0.5, depth: 2 }, scene);
+       sofaBase.position.y = 0.25;  
+       sofaBase.material = sofaMat;
+
+      // Sofa - Backrest
+      const backrest = BABYLON.MeshBuilder.CreateBox("backrest", { width: 4, height: 1.2, depth: 0.5 }, scene);
+      backrest.position.y = 1.25;
+      backrest.position.z = -0.75;
+      backrest.material = sofaMat;
+
+      // Sofa - Left Armrest
+      const leftArmrest = BABYLON.MeshBuilder.CreateBox("leftArmrest", { width: 0.5, height: 1, depth: 2 }, scene);
+      leftArmrest.position.x = -1.75;
+      leftArmrest.position.y = 0.75;
+      leftArmrest.material = sofaMat;
+
+      // Sofa - Right Armrest
+      const rightArmrest = BABYLON.MeshBuilder.CreateBox("rightArmrest", { width: 0.5, height: 1, depth: 2 }, scene);
+      rightArmrest.position.x = 1.75;
+      rightArmrest.position.y = 0.75;
+      rightArmrest.material = sofaMat;
+
+    // Group tsofa
+     const sofa = new BABYLON.TransformNode("sofa"); 
+     sofaBase.parent = sofa;
+     backrest.parent = sofa;
+     leftArmrest.parent = sofa;
+     rightArmrest.parent = sofa;
+ 
+     // sofa poition
+     sofa.position.set(-5, 0.25, 2);  
+     sofa.rotation.y = Math.PI / 2; 
     
         // Render loop
         engine.runRenderLoop(() => scene.render());
