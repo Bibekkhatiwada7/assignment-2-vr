@@ -1,5 +1,5 @@
-    // Basic scene setup
-    window.addEventListener('DOMContentLoaded', function(){
+        // Basic scene setup
+        window.addEventListener('DOMContentLoaded', async function(){
         const canvas = document.getElementById('renderCanvas');
         const engine = new BABYLON.Engine(canvas, true);
         const scene = new BABYLON.Scene(engine);
@@ -70,6 +70,7 @@
  monitorMat.diffuseTexture = screenTexture; // Apply the image texture only to the screen
  monitor.material = monitorMat;
 
+ 
  // Added GUI to show the Welcome message
 const guiTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
@@ -103,7 +104,6 @@ computer.actionManager.registerAction(new BABYLON.ExecuteCodeAction(
         taskText.isVisible = true;
     }
 ));
-
 
 
     // mouse
@@ -223,11 +223,11 @@ computer.actionManager.registerAction(new BABYLON.ExecuteCodeAction(
 
     button.onPointerUpObservable.add(function () {
         if (lampLight.intensity === 0) {
-            lampLight.intensity = 0.8;  // Turn on the lamp
-            button.background = "red";  // Change button color to indicate it's on
+            lampLight.intensity = 0.8;  
+            button.background = "red"; 
         } else {
-            lampLight.intensity = 0;  // Turn off the lamp
-            button.background = "green";  // Change button color to indicate it's off
+            lampLight.intensity = 0;
+            button.background = "green";  
         }
     });
 
@@ -281,7 +281,25 @@ computer.actionManager.registerAction(new BABYLON.ExecuteCodeAction(
      clockMat.diffuseTexture = clockTexture; 
      clock.material = clockMat;
 
-    
+    // Start a WebXR session 
+    const xr = await scene.createDefaultXRExperienceAsync({
+       uiOptions: {
+            sessionMode: "immersive-vr", 
+            referenceSpaceType: "local-floor"
+        },
+        optionalFeatures: true
+    });
+
+  // make a window picture
+const windowPlane = BABYLON.MeshBuilder.CreatePlane("windowPlane", { width: 4, height: 2.5 }, scene);
+windowPlane.position.set(7.3, 2.5, 0); // Position on the right wall
+windowPlane.rotation.y = Math.PI / 2; 
+const windowTexture = new BABYLON.Texture("Textures/th (4).jpeg", scene); 
+const windowMaterial = new BABYLON.StandardMaterial("windowMat", scene);
+windowMaterial.diffuseTexture = windowTexture; 
+windowPlane.material = windowMaterial;
+
+
         // Render loop
         engine.runRenderLoop(() => scene.render());
         window.addEventListener('resize', () => engine.resize());
