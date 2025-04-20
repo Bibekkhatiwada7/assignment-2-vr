@@ -20,6 +20,38 @@
         groundMat.diffuseTexture = new BABYLON.Texture("Textures/ground.jpg", scene); 
         ground.material = groundMat;
         
+         // Wall Texture 
+    const wallMat = new BABYLON.StandardMaterial("wallMat", scene);
+    wallMat.diffuseTexture = new BABYLON.Texture("Textures/th (2).jpeg", scene);
+
+    // Room Walls (front, back, left, right)
+    const wallThickness = 0.2; 
+    const roomHeight = 4;
+
+    // Front Wall
+    const frontWall = BABYLON.MeshBuilder.CreateBox("frontWall", { width: 15, height: roomHeight, depth: wallThickness }, scene);
+    frontWall.position.z = -7.5;
+    frontWall.position.y = roomHeight / 2;
+    frontWall.material = wallMat;  
+
+    // Back Wall
+    const backWall = BABYLON.MeshBuilder.CreateBox("backWall", { width: 15, height: roomHeight, depth: wallThickness }, scene);
+    backWall.position.z = 7.5;
+    backWall.position.y = roomHeight / 2;
+    backWall.material = wallMat;  
+
+    // Left Wall
+    const leftWall = BABYLON.MeshBuilder.CreateBox("leftWall", { width: wallThickness, height: roomHeight, depth: 15 }, scene);
+    leftWall.position.x = -7.5;
+    leftWall.position.y = roomHeight / 2;
+    leftWall.material = wallMat;  
+
+    // Right Wall
+    const rightWall = BABYLON.MeshBuilder.CreateBox("rightWall", { width: wallThickness, height: roomHeight, depth: 15 }, scene);
+    rightWall.position.x = 7.5;
+    rightWall.position.y = roomHeight / 2;
+    rightWall.material = wallMat;  
+
         // Added a computer
     const computer = BABYLON.MeshBuilder.CreateBox("computer", { width: 1.5, height: 0.8, depth: 0.1 }, scene);
     computer.position.y = 1.45;
