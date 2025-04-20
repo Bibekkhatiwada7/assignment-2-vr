@@ -75,13 +75,51 @@
        rightLeg.position.set(1, 0.5, -3.5);
        rightLeg.material = deskMat;
 
-       // Added a chair
-       const chair = BABYLON.MeshBuilder.CreateCylinder("chair", { diameter: 0.8, height: 0.5 }, scene);
-       chair.position.y = 0.25;
-       chair.position.z = -1.5;
-       const chairMat = new BABYLON.StandardMaterial("chairMat", scene);
-       chairMat.diffuseColor = new BABYLON.Color3(0.6, 0.4, 0.3);
-       chair.material = chairMat;
+       // Chair Seat
+    const seat = BABYLON.MeshBuilder.CreateBox("seat", { width: 1, height: 0.2, depth: 1 }, scene);
+    seat.position.set(0, 0, -2); 
+    const seatMat = new BABYLON.StandardMaterial("seatMat", scene);
+    seatMat.diffuseColor = new BABYLON.Color3(0.1, 0.1, 0.1); 
+    seat.material = seatMat;
+
+    // Chair Backrest
+    const chairBackrest = BABYLON.MeshBuilder.CreateBox("backrest", { width: 1, height: 1, depth: 0.2 }, scene);
+    chairBackrest.position.set(0, 0.6, -2.5);  
+    const backrestMat = new BABYLON.StandardMaterial("backrestMat", scene);
+    backrestMat.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.3);  
+    chairBackrest.material = backrestMat;
+
+    // chair legs
+    const leg1 = BABYLON.MeshBuilder.CreateBox("leg1", { width: 0.1, height: 0.5, depth: 0.1 }, scene);
+    leg1.position.set(-0.4, -0.45, -1.8);  
+    const leg2 = BABYLON.MeshBuilder.CreateBox("leg2", { width: 0.1, height: 0.5, depth: 0.1 }, scene);
+    leg2.position.set(0.4, -0.45, -1.8);   
+    const leg3 = BABYLON.MeshBuilder.CreateBox("leg3", { width: 0.1, height: 0.5, depth: 0.1 }, scene);
+    leg3.position.set(-0.4, -0.45, -2.2);  
+    const leg4 = BABYLON.MeshBuilder.CreateBox("leg4", { width: 0.1, height: 0.5, depth: 0.1 }, scene);
+    leg4.position.set(0.4, -0.45, -2.2);   
+
+    const legMat = new BABYLON.StandardMaterial("legMat", scene);
+    legMat.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.3);  
+    leg1.material = legMat;
+    leg2.material = legMat;
+    leg3.material = legMat;
+    leg4.material = legMat;
+
+    // Group all parts of the chair
+    const chair = new BABYLON.TransformNode("chair");
+    seat.parent = chair;
+    chairBackrest.parent = chair;  
+    leg1.parent = chair;
+    leg2.parent = chair;
+    leg3.parent = chair;
+    leg4.parent = chair;
+
+    // Position the chair in the scene
+    chair.position.set(0, 0.75, -4);
+    chair.rotation.y = Math.PI;
+
+    
        
        // Lamp Stand 
        const stand = BABYLON.MeshBuilder.CreateCylinder("stand", { height: 3, diameterTop: 0.1, diameterBottom: 0.2 }, scene);
