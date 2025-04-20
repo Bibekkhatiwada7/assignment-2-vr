@@ -208,6 +208,32 @@ computer.actionManager.registerAction(new BABYLON.ExecuteCodeAction(
        lampLight.diffuse = new BABYLON.Color3(1, 1, 0);  
        lampLight.range = 5;  
 
+        // Button to toggle lamp light
+    const advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+    const button = BABYLON.GUI.Button.CreateSimpleButton("toggleLampBtn", "Light On off");
+    button.width = "150px";
+    button.height = "50px";
+    button.color = "white";
+    button.background = "green";
+    button.cornerRadius = 10;
+    button.top = "20%";
+    button.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+    button.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+
+    button.onPointerUpObservable.add(function () {
+        if (lampLight.intensity === 0) {
+            lampLight.intensity = 0.8;  // Turn on the lamp
+            button.background = "red";  // Change button color to indicate it's on
+        } else {
+            lampLight.intensity = 0;  // Turn off the lamp
+            button.background = "green";  // Change button color to indicate it's off
+        }
+    });
+
+    advancedTexture.addControl(button);
+
+
        // Sofa Material
        const sofaMat = new BABYLON.StandardMaterial("sofaMat", scene);
        sofaMat.diffuseColor = new BABYLON.Color3(0.6, 0.3, 0.2);  
@@ -235,7 +261,7 @@ computer.actionManager.registerAction(new BABYLON.ExecuteCodeAction(
       rightArmrest.position.y = 0.75;
       rightArmrest.material = sofaMat;
 
-    // Group tsofa
+    // Group sofa
      const sofa = new BABYLON.TransformNode("sofa"); 
      sofaBase.parent = sofa;
      backrest.parent = sofa;
@@ -245,6 +271,16 @@ computer.actionManager.registerAction(new BABYLON.ExecuteCodeAction(
      // sofa poition
      sofa.position.set(-5, 0.25, 2);  
      sofa.rotation.y = Math.PI / 2; 
+
+     // Add the clock 
+     const clockTexture = new BABYLON.Texture("Textures/th (3).jpeg", scene); //texture image
+     const clock = BABYLON.MeshBuilder.CreatePlane("clock", { width: 2, height: 2 }, scene); 
+     clock.position.set(0, 2.5, -7); 
+     clock.rotation.y = Math.PI; 
+     const clockMat = new BABYLON.StandardMaterial("clockMat", scene);
+     clockMat.diffuseTexture = clockTexture; 
+     clock.material = clockMat;
+
     
         // Render loop
         engine.runRenderLoop(() => scene.render());
