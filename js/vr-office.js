@@ -281,24 +281,38 @@ computer.actionManager.registerAction(new BABYLON.ExecuteCodeAction(
      clockMat.diffuseTexture = clockTexture; 
      clock.material = clockMat;
 
+    
+    // make a window picture
+     const windowPlane = BABYLON.MeshBuilder.CreatePlane("windowPlane", { width: 4, height: 2.5 }, scene);
+     windowPlane.position.set(7.3, 2.5, 0); // Position on the right wall
+     windowPlane.rotation.y = Math.PI / 2; 
+     const windowTexture = new BABYLON.Texture("Textures/th (4).jpeg", scene); 
+     const windowMaterial = new BABYLON.StandardMaterial("windowMat", scene);
+     windowMaterial.diffuseTexture = windowTexture; 
+     windowPlane.material = windowMaterial;
+
+     // Create a small cylindrical dustbin
+const dustbin = BABYLON.MeshBuilder.CreateCylinder("dustbin", {
+    diameter: 1,      
+    height: 1.3,        
+    tessellation: 24  
+}, scene);
+
+// Position the dustbin
+dustbin.position.set(-6, 1, -5); // Adjust the position as needed
+const dustbinMat = new BABYLON.StandardMaterial("dustbinMat", scene);
+dustbinMat.diffuseColor = new BABYLON.Color3(0, 0, 0);  
+dustbin.material = dustbinMat;
+
+
     // Start a WebXR session 
     const xr = await scene.createDefaultXRExperienceAsync({
-       uiOptions: {
-            sessionMode: "immersive-vr", 
-            referenceSpaceType: "local-floor"
-        },
-        optionalFeatures: true
-    });
-
-  // make a window picture
-const windowPlane = BABYLON.MeshBuilder.CreatePlane("windowPlane", { width: 4, height: 2.5 }, scene);
-windowPlane.position.set(7.3, 2.5, 0); // Position on the right wall
-windowPlane.rotation.y = Math.PI / 2; 
-const windowTexture = new BABYLON.Texture("Textures/th (4).jpeg", scene); 
-const windowMaterial = new BABYLON.StandardMaterial("windowMat", scene);
-windowMaterial.diffuseTexture = windowTexture; 
-windowPlane.material = windowMaterial;
-
+        uiOptions: {
+             sessionMode: "immersive-vr", 
+             referenceSpaceType: "local-floor"
+         },
+         optionalFeatures: true
+     });
 
         // Render loop
         engine.runRenderLoop(() => scene.render());
