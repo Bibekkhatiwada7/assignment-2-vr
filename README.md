@@ -1,21 +1,24 @@
-Virtual Career Exploration Hub (Assignment 2)
-Description
-This is a simple VR scene built using BabylonJS for Assignment 2. The scene is a small virtual office that contains basic objects like a desk, a chair, and a computer. The goal is to create a starting point for a virtual career exploration hub where users will be able to experience a simple office environment.
+VR Office Scene
+Overview
+This project is a virtual reality office created using Babylon.js. It features a desk, computer, printer, sofa, lamp, clock, and window, designed to create an immersive office environment.
 
-Features
-Basic VR setup using BabylonJS
+Features:
+Camera & Lighting: Navigate the scene with an ArcRotateCamera and adjust lighting with a Hemispheric Light.
 
-Simple office scene with:
+Interactive Computer: Click the computer to view a task list.
 
-Ground with texture
+Toggle Lamp: A button to turn the lamp's light on and off.
 
-A computer
+VR Support: Experience the scene in immersive VR.
 
-A desk (with legs)
+Setup:
+Clone or download the repository.
 
-A chair
+Open index.html in a browser (or serve via a local server).
 
-Scene lighting
+Ensure models and textures are in the correct folders (./models/ and ./Textures/).
 
-Ready for WebXR immersive VR mode
-Github page Deployment: https://bibekkhatiwada7.github.io/assignment-2-vr/
+Controls:
+Click the computer to see tasks.
+
+Toggle the lamp's light using the button.
