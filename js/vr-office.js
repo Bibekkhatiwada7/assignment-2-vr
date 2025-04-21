@@ -21,8 +21,8 @@
         ground.material = groundMat;
         
          // Wall Texture 
-    const wallMat = new BABYLON.StandardMaterial("wallMat", scene);
-    wallMat.diffuseTexture = new BABYLON.Texture("Textures/th (2).jpeg", scene);
+        const wallMat = new BABYLON.StandardMaterial("wallMat", scene);
+        wallMat.diffuseTexture = new BABYLON.Texture("Textures/th (2).jpeg", scene);
 
     // Room Walls (front, back, left, right)
     const wallThickness = 0.2; 
@@ -289,31 +289,40 @@ computer.actionManager.registerAction(new BABYLON.ExecuteCodeAction(
      const windowTexture = new BABYLON.Texture("Textures/th (4).jpeg", scene); 
      const windowMaterial = new BABYLON.StandardMaterial("windowMat", scene);
      windowMaterial.diffuseTexture = windowTexture; 
-     windowPlane.material = windowMaterial;
+     windowPlane.material = windowMaterial; 
 
-     // Create a small cylindrical dustbin
-const dustbin = BABYLON.MeshBuilder.CreateCylinder("dustbin", {
-    diameter: 1,      
-    height: 1.3,        
-    tessellation: 24  
-}, scene);
+// Function to load and place models in the scene
+function addMeshToScene(modelName, position, rotation, scale) {
+    BABYLON.SceneLoader.ImportMesh(
+        "",
+        "./models/",
+        modelName,
+        scene,
+        function (meshes) {
+            const mesh = meshes[0];
+            mesh.position.set(...position);
+            mesh.rotation = new BABYLON.Vector3(...rotation);
+            mesh.scaling = new BABYLON.Vector3(...scale);
+        }
+    );
+}
 
-// Position the dustbin
-dustbin.position.set(-6, 1, -5); // Adjust the position as needed
-const dustbinMat = new BABYLON.StandardMaterial("dustbinMat", scene);
-dustbinMat.diffuseColor = new BABYLON.Color3(0, 0, 0);  
-dustbin.material = dustbinMat;
+// Adding models to the scene 
+addMeshToScene("BusinessDude.glb", [-0.5, 0, -1], [0, 1.3, 0], [0.5, 0.5, 0.5]);
+addMeshToScene("Trashcan.glb", [6, 0, -5], [0, 2, 0], [2, 1.5, 2]);
+addMeshToScene("House plant.glb", [-6, 0, -6], [0, 0, 0], [0.5, 0.5, 0.5]);
+addMeshToScene("Printer.glb", [-1, 1.2, -3], [0, 0, 0], [2, 2, 2]);
+addMeshToScene("Books on Bookshelf.glb", [5, 2, 7], [0, 0, 0], [3, 2, 2]);
 
-
-    // Start a WebXR session 
-    const xr = await scene.createDefaultXRExperienceAsync({
-        uiOptions: {
-             sessionMode: "immersive-vr", 
-             referenceSpaceType: "local-floor"
-         },
-         optionalFeatures: true
-     });
-
+        // Start a WebXR session 
+        const xr = await scene.createDefaultXRExperienceAsync({
+            uiOptions: {
+                 sessionMode: "immersive-vr", 
+                 referenceSpaceType: "local-floor"
+             },
+             optionalFeatures: true
+         });
+    
         // Render loop
         engine.runRenderLoop(() => scene.render());
         window.addEventListener('resize', () => engine.resize());
